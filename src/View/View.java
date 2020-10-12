@@ -32,11 +32,6 @@ public class View {
 	//conterao os indices do estilo e da musica que o user selecionar no painel de montagem de playlist
 	private int selectedGenreIndex;
 	private int selectedSongIndex;
-	
-	
-	int currentSongIndex;
-	
-	String userGenreNameInput = "Indefinido";
 
     public View(Controller controller) {
 		
@@ -383,7 +378,6 @@ public class View {
 	
 	public String askUserForGenreName (Song song) {
 		
-		userGenreNameInput = "Indefinido";
 		String songName = song.getSongName();
 			
 		//criamos uma popUp e adicionamos botoes para recebermos input do usuario
