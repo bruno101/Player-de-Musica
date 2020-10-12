@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.*;
 import java.io.RandomAccessFile;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 import com.mpatric.mp3agic.ID3v1;
@@ -51,10 +52,17 @@ public class Controller {
 	private ArrayList<ArrayList<Song>> userSongsList; 
 	
 	public static void main(String args[]) {
+		
+		//verificamos se a pasta userData existe, e se ela nao existir a criamos
+		if (!Files.exists(Paths.get("src\\UserData"))) {
+			new File("src\\UserData").mkdirs();
+		}
+		
 		Controller controller = new Controller();
 		View view = new View(controller);
 		controller.view = view;
 		controller.run();
+		
 	}
 	
 	public void run() {
