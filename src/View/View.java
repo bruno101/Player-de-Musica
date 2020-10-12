@@ -368,12 +368,9 @@ public class View {
 	}
 	
 	public void setCurrentSongIndex (int index) {
-		//System.out.println(1);
 		((TransparentListCellRenderer) this.playlist.getCellRenderer()).setCurrentSongIndex(index);
 		this.currentSongLabel.setText(this.controller.getCurrentSongName());
-		//System.out.println(2);
 		this.playlist.updateUI();
-		//System.out.println(3);
 	}
 	
 	public String askUserForGenreName (Song song) {
