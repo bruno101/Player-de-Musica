@@ -36,8 +36,6 @@ public class Controller {
 	
 	View view;
 	
-	//private int i = 0;
-	
 	//a playlist em execucao
 	private Playlist playlist;
 	//o indice da musica selecionada no momento
@@ -62,26 +60,7 @@ public class Controller {
 	public void run() {
 		
 		this.importSongsFromUserData();
-		
-		//ArrayList<String> songs = new ArrayList<String>();
-		//Collections.addAll(songs, "Artist - Song", "Artist - Song", "Artist - Song", "Artist - Song", "Artist - Song", "Artist - Song", "Artist - Song", "Artist - Song", "Artist - Song", "Artist - Song", "Artist - Song", "Artist - Song", "Artist - Song", "Artist - Song", "Artist - Song", "Artist - Song", "Artist - Song", "Artist - Song", "Artist - Song", "Artist - Song", "Artist - Song");
-		
-		//ArrayList<String> genres = new ArrayList<String>();
-		//Collections.addAll(genres, "Genre", "Genre", "Genre", "Genre", "Genre", "Genre", "Genre", "Genre", "Genre", "Genre");
-		
-		//ArrayList<String> userSongs = new ArrayList<String>();
-		//Collections.addAll(userSongs,  "Artist - Song", "Artist - Song", "Artist - Song", "Artist - Song", "Artist - Song", "Artist - Song", "Artist - Song", "Artist - Song", "Artist - Song", "Artist - Song", "Artist - Song", "Artist - Song", "Artist - Song", "Artist - Song", "Artist - Song", "Artist - Song", "Artist - Song", "Artist - Song", "Artist - Song", "Artist - Song", "Artist - Song");
-		
-		//this.view.addSongsToPlaylist(songs);
-		//this.view.addGenresToGenresList(genres);
-		//this.view.addSongsToDisplayedUserSongsList(userSongs);
-		
 		this.playlist = new Playlist();
-		//playlist.addSong("C:\\Users\\ibyte\\Documents\\Plano B\\src\\UserData\\Chloe x Halle - Overwhelmed (Official Audio).mp3");
-		//playlist.addSong("C:\\Users\\ibyte\\Documents\\Plano B\\src\\UserData\\Big Thief - UFOF (Official Audio).mp3");
-		//playlist.addSong("C:\\Users\\ibyte\\Documents\\Plano B\\src\\UserData\\Betsy.mp3");
-		
-		//this.startPlaylist(false);
 		
 	}
 	
