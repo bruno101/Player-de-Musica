@@ -33,14 +33,10 @@ public class View {
 	private int selectedGenreIndex;
 	private int selectedSongIndex;
 	
+	
 	int currentSongIndex;
 	
-	//boolean alreadyShowedPopUpAfterLastImport = false;
-	JTextArea genreName;
 	String userGenreNameInput = "Indefinido";
-	//a lista de pop-ups pedindo input sobre estilo musical para o usuario
-	//nao queremos que duas popUps sejam mostradas ao mesmo tempo
-	//ArrayList<JFrame> popUps = new ArrayList<>();
 
     public View(Controller controller) {
 		
@@ -52,7 +48,6 @@ public class View {
 		 
 		 //Criamos a label com o nome da musica atual
 		 this.currentSongLabel = new JLabel("Large Artist Name - Large Song Name");
-		 //this.currentSongLabel.setFont(new Font("Arial", Font.BOLD, 16));
 		 this.currentSongLabel.setBounds(5,10,550,45);
 		 this.currentSongLabel.setHorizontalAlignment(JLabel.CENTER);
 		 
@@ -388,12 +383,6 @@ public class View {
 	
 	public String askUserForGenreName (Song song) {
 		
-		//Thread thread = new Thread() {
-			
-			//public void run() {
-				
-				//System.out.println("running new thread");
-		
 		userGenreNameInput = "Indefinido";
 		String songName = song.getSongName();
 			
@@ -439,64 +428,6 @@ public class View {
 			}
 		
 		});
-	
-		
-		//System.out.println("finished");
-		
-			//}
-		//};
-		
-		//thread.start();
-		
-		/*
-		Runnable runnable = new Runnable() {
-			
-			@Override
-			public void run() {
-				while(!userClosedPopUp) {
-			        try {
-				        Thread.sleep(1000);
-			        } catch (InterruptedException e) {
-				        e.printStackTrace();
-			        }
-				}
-			}
-			
-			public String getUserInput() {
-				System.out.println("here");
-				return userGenreNameInput;
-			}
-			
-		};
-		
-		Thread thread = new Thread(runnable);
-		
-		thread.start();
-		thread.join();
-		*/
-		
-		
-		/*
-		while(!userClosedPopUp) {
-			 try {
-				 System.out.println("Running current thread");
-				 Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				 e.printStackTrace();
-			}
-		}
-		*/
-		/*
-		int delay = 1000;
-		Time timer = new Timer(delay, new AbstractAction() {
-			@Override
-			
-		timer.setRepeats(false);
-		timer.start();
-			
-		
-		System.out.println("its here");
-		*/
 		
 		return userGenreNameInput;
 	}
