@@ -373,7 +373,7 @@ public class View {
 		this.playlist.updateUI();
 	}
 	
-	public String askUserForGenreName (Song song) {
+	public void askUserForGenreName (Song song) {
 		
 		String songName = song.getSongName();
 			
@@ -420,8 +420,7 @@ public class View {
 			}
 		
 		});
-		
-		return userGenreNameInput;
+	
 	}
 	
 }
