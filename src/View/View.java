@@ -394,6 +394,7 @@ public class View {
             public void actionPerformed(ActionEvent e) {
 				song.setSongGenre(genreName.getText());
 				controller.addSongToUserSongsList(song);
+		                popUp.dispose();
 				System.out.println(song.getSongName() + " " + genreName.getText());
             }	
         
