@@ -5,6 +5,8 @@ javac -d bin -cp "lib/*" src/Controller/Controller.java src/View/View.java src/V
 
 java -cp bin -cp "bin;lib/*" Controller.Controller
 
+Se aparecer 'directory not found: bin' é porque é necessário criar dentro de 'Player-de-Musica-main' uma pasta 'bin'.
+
 Em outro sistema operacional eu nao testei, mas imagino que a unica mudanca seja substituir o ';' no comando de execucao por ':'.
 
 Observação: Na compilaçao podem aparecer 'warning's, mas nao tem problema. Na execucao podem aparecer 'NullPointerException's misteriosas envolvendo o Swing aleatoriamente, mas elas parecem nao afetar em nada a execucao do programa. # Player-de-Musica
