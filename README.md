@@ -1,9 +1,9 @@
 Para executar no Windows na cmd:
 Mude o diretório para o do projeto ( C:\...\Player-de-Musica-main). Digite:
 
-javac -d bin -cp "lib/*" src/Controller/Controller.java src/View/View.java src/View/TransparentListCellRenderer.java src/View/UserSongsListCellRenderer.java src/Model/Song.java src/Model/Playlist.java src/Controller/PausablePlayer.java
+javac -d bin -cp "lib/*" src/controller/Controller.java src/view/View.java src/view/TransparentListCellRenderer.java src/view/UserSongsListCellRenderer.java src/model/Song.java src/model/Playlist.java src/controller/PausablePlayer.java
 
-java -cp bin -cp "bin;lib/*" Controller.Controller
+java -cp bin -cp "bin;lib/*" controller.Controller
 
 Se aparecer 'directory not found: bin' é porque é necessário criar dentro de 'Player-de-Musica-main' uma pasta 'bin'.
 
