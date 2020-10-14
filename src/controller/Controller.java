@@ -1,7 +1,7 @@
-package Controller;
+package controller;
 
-import View.*;
-import Model.*;
+import view.*;
+import model.*;
 
 import java.util.Collections;
 import java.util.*;
@@ -28,14 +28,16 @@ import javazoom.jl.player.Player;
 /*Para compilar:
 
 (Windows)
-javac -d bin -cp "lib/*" src/Controller/Controller.java src/View/View.java src/View/TransparentListCellRenderer.java src/View/UserSongsListCellRenderer.java src/Model/Song.java src/Model/Playlist.java src/Controller/PausablePlayer.java
-java -cp bin -cp "bin;lib/*" Controller.Controller
+javac -d bin -cp "lib/*" src/controller/Controller.java src/view/View.java src/view/TransparentListCellRenderer.java src/view/UserSongsListCellRenderer.java src/model/Song.java src/model/Playlist.java src/controller/PausablePlayer.java
+java -cp bin -cp "bin;lib/*" controller.Controller
 
 */
 
 public class Controller {
 	
 	View view;
+	
+	//private int i = 0;
 	
 	//a playlist em execucao
 	private Playlist playlist;
@@ -50,26 +52,25 @@ public class Controller {
 	
 	//Um conjunto ordenado (TreeSet) com a lista de generos
 	private TreeSet<String> genreSet;
-	//Um conjunto de conjuntos de musicas de determinado estilo, na mesma ordem que o TreeSet
+	//Um conjunto de conjuntos de musicas de determinado estilo, na mesma ordem que o LinkedHashSet
 	private ArrayList<ArrayList<Song>> userSongsList; 
 	
 	public static void main(String args[]) {
-		
-		//verificamos se a pasta userData existe, e se ela nao existir a criamos
-		if (!Files.exists(Paths.get("src\\UserData"))) {
-			new File("src\\UserData").mkdirs();
-		}
-		
 		Controller controller = new Controller();
 		View view = new View(controller);
 		controller.view = view;
 		controller.run();
-		
 	}
 	
 	public void run() {
 		
+		//verificamos se a pasta userData existe, e se ela nao existir a criamos
+		if (!Files.exists(Paths.get("src\\model\\userData"))) {
+			new File("src\\model\\userData").mkdirs();
+		}
+		
 		this.importSongsFromUserData();
+		
 		this.playlist = new Playlist();
 		
 	}
@@ -77,24 +78,26 @@ public class Controller {
 	public void importSongsFromUserData() {
 		
 		this.genreSet = new TreeSet<String>();
-	    this.userSongsList = new ArrayList<ArrayList<Song>>();
+	        this.userSongsList = new ArrayList<ArrayList<Song>>();
 		
-		File userData = new File("src\\UserData");
+		File userData = new File("src\\model\\userData");
 		
 		//int i = 0;
+		
+		if ( (userData != null) && (userData.listFiles() != null) ) {
 		
 		for (File file: userData.listFiles()) {
 				
 			String songPath = file.getPath();
-		    Song song = new Song(songPath);
+		        Song song = new Song(songPath);
 		
             if (this.genreSet.contains(song.getSongGenre())) {
 		   		//Note que 'headSet(element).size()' retorna o indice de um elemento contido em um TreeSet se ele estiver contido
-    			int index = this.genreSet.headSet(song.getSongGenre()).size();
-	    		this.userSongsList.get(index).add(song);
+    			        int index = this.genreSet.headSet(song.getSongGenre()).size();
+	    		        this.userSongsList.get(index).add(song);
 		   	} else {
-		    	this.genreSet.add(song.getSongGenre());
-		    	//queremos que a ordem dos generos em genreSet seja a mesma que em userSongsList
+		    	    this.genreSet.add(song.getSongGenre());
+		    	    //queremos que a ordem dos generos em genreSet seja a mesma que em userSongsList
 			    int index = this.genreSet.headSet(song.getSongGenre()).size();
 			    this.userSongsList.add(index, new ArrayList<Song>());
 			    this.userSongsList.get(index).add(song);
@@ -105,13 +108,15 @@ public class Controller {
 		
 		this.view.addGenresToGenresList(this.genreSet);
 		
+		}
+		
 	}
 	
 	public void addSongToUserData (String filePath) {
 		
 		//copiamos para a pasta UserData
 		File source = new File(filePath);
-		File destination = new File("src\\UserData\\" + source.getName());
+		File destination = new File("src\\model\\userData\\" + source.getName());
 		
 		try {
 			Files.copy(source.toPath(), destination.toPath(), StandardCopyOption.REPLACE_EXISTING);
@@ -135,14 +140,14 @@ public class Controller {
 		
 		if (this.genreSet.contains(song.getSongGenre())) {
 		   	//Note que 'headSet(element).size()' retorna o indice de um elemento contido em um TreeSet se ele estiver contido
-    		int index = this.genreSet.headSet(song.getSongGenre()).size();
-	    	this.userSongsList.get(index).add(song);
+    		        int index = this.genreSet.headSet(song.getSongGenre()).size();
+	    	        this.userSongsList.get(index).add(song);
 		} else {
 			this.genreSet.add(song.getSongGenre());
 			//queremos que a ordem dos generos em genreSet seja a mesma que em userSongsList
-		    int index = this.genreSet.headSet(song.getSongGenre()).size();
-		    this.userSongsList.add(index, new ArrayList<Song>());
-		    this.userSongsList.get(index).add(song);
+		        int index = this.genreSet.headSet(song.getSongGenre()).size();
+		        this.userSongsList.add(index, new ArrayList<Song>());
+		        this.userSongsList.get(index).add(song);
 	   	}
 		
 		this.view.addGenresToGenresList(this.genreSet);
@@ -193,7 +198,7 @@ public class Controller {
 		
 		if (this.playlist.getSize() > 0) {
 			
-			this.index = 0;
+		    this.index = 0;
 		    this.view.addSongsToPlaylist(this.playlist.getSongsList());
 		    this.view.setCurrentSongIndex(this.index);
 		    this.paused = false;
@@ -224,7 +229,7 @@ public class Controller {
 		
 		    if (this.songBeingPlayed != null) {
 			    this.stopSong();
-				this.playSong();
+			    this.playSong();
 		    }
 			
 		}
@@ -245,9 +250,9 @@ public class Controller {
 			} else {
 				
 				if (this.songBeingPlayed == null) {
-				      FileInputStream in = new FileInputStream(filePath);
-			              this.songBeingPlayed = new PausablePlayer(in, this);
-			              this.songBeingPlayed.play();
+					FileInputStream in = new FileInputStream(filePath);
+			                this.songBeingPlayed = new PausablePlayer(in, this);
+			                this.songBeingPlayed.play();
 				}
 				
 			}
@@ -262,8 +267,8 @@ public class Controller {
 		
 		if (this.songBeingPlayed != null) {
 			System.out.println("Pausar");
-		    this.songBeingPlayed.pause();
-		    this.paused = true;
+		        this.songBeingPlayed.pause();
+		        this.paused = true;
 		}
 		
 	}
@@ -272,8 +277,8 @@ public class Controller {
 		
 		if (this.songBeingPlayed != null) {
 			System.out.println("Parar");
-		    this.paused = false;
-		    this.songBeingPlayed.stop();
+		        this.paused = false;
+		        this.songBeingPlayed.stop();
 			this.songBeingPlayed = null;
 		}
 		
@@ -293,7 +298,7 @@ public class Controller {
 		
 		    if (this.songBeingPlayed != null) {
 			    this.stopSong();
-				this.playSong();
+			    this.playSong();
 		    }
 		
 		}
@@ -312,8 +317,8 @@ public class Controller {
 		
 		if (this.songBeingPlayed != null) {
 			this.stopSong();
-	     	this.playSong();
-        }
+	     	        this.playSong();
+                }
 	
 	}
 	
