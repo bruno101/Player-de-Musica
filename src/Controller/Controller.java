@@ -50,7 +50,7 @@ public class Controller {
 	
 	//Um conjunto ordenado (TreeSet) com a lista de generos
 	private TreeSet<String> genreSet;
-	//Um conjunto de conjuntos de musicas de determinado estilo, na mesma ordem que o LinkedHashSet
+	//Um conjunto de conjuntos de musicas de determinado estilo, na mesma ordem que o TreeSet
 	private ArrayList<ArrayList<Song>> userSongsList; 
 	
 	public static void main(String args[]) {
@@ -237,40 +237,6 @@ public class Controller {
 			
 			String filePath = this.playlist.getSong(index).getSongPath();
 			
-			Mp3File mp3file = new Mp3File(filePath);
-			
-			File s = new File(filePath);
-			System.out.println("Name of the file: " + s.getName());
-			
-			System.out.println("Length of this mp3 is: " + mp3file.getLengthInSeconds() + " seconds");
-            System.out.println("Bitrate: " + mp3file.getBitrate() + " kbps " + (mp3file.isVbr() ? "(VBR)" : "(CBR)"));
-            System.out.println("Sample rate: " + mp3file.getSampleRate() + " Hz");
-            System.out.println("Has ID3v1 tag?: " + (mp3file.hasId3v1Tag() ? "YES" : "NO"));
-            System.out.println("Has ID3v2 tag?: " + (mp3file.hasId3v2Tag() ? "YES" : "NO"));
-            System.out.println("Has custom tag?: " + (mp3file.hasCustomTag() ? "YES" : "NO"));
-			
-			if (mp3file.hasId3v1Tag()) {
-        	    ID3v1 id3v1Tag = mp3file.getId3v1Tag();
-        	    System.out.println("Artist: " + id3v1Tag.getArtist());
-        	    System.out.println("Title: " + id3v1Tag.getTitle());
-        	    System.out.println("Genre: " + id3v1Tag.getGenre() + " (" + id3v1Tag.getGenreDescription() + ")");
-            }
-        
-		    if (mp3file.hasId3v2Tag()) {
-        	    ID3v2 id3v2Tag = mp3file.getId3v2Tag();
-        	    System.out.println("Artist: " + id3v2Tag.getArtist());
-        	    System.out.println("Title: " + id3v2Tag.getTitle());
-        	    System.out.println("Genre: " + id3v2Tag.getGenre() + " (" + id3v2Tag.getGenreDescription() + ")");
-        	    System.out.println("Comment: " + id3v2Tag.getComment());
-        	    System.out.println("Composer: " + id3v2Tag.getComposer());
-        	    System.out.println("Publisher: " + id3v2Tag.getPublisher());
-        	    System.out.println("Original artist: " + id3v2Tag.getOriginalArtist());
-        	    System.out.println("Album artist: " + id3v2Tag.getAlbumArtist());
-        	    System.out.println("Copyright: " + id3v2Tag.getCopyright());
-        	    System.out.println("URL: " + id3v2Tag.getUrl());
-        	    System.out.println("Encoder: " + id3v2Tag.getEncoder());
-            }
-			
 			if (this.paused) {
 				
 				this.songBeingPlayed.resume();
@@ -279,9 +245,9 @@ public class Controller {
 			} else {
 				
 				if (this.songBeingPlayed == null) {
-					FileInputStream in = new FileInputStream(filePath);
-			        this.songBeingPlayed = new PausablePlayer(in, this);
-			        this.songBeingPlayed.play();
+				      FileInputStream in = new FileInputStream(filePath);
+			              this.songBeingPlayed = new PausablePlayer(in, this);
+			              this.songBeingPlayed.play();
 				}
 				
 			}
