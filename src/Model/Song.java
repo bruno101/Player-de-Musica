@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 import java.io.File;
 import java.nio.file.*;
@@ -112,8 +112,8 @@ public class Song {
 			}
 			
 			//Substituindo o arquivo original
-			mp3file.save("src\\UserData\\temp.mp3");
-			File source = new File("src\\UserData\\temp.mp3");
+			mp3file.save("src\\model\\userData\\temp.mp3");
+			File source = new File("src\\model\\userData\\temp.mp3");
 			Files.move(source.toPath(), s.toPath(), StandardCopyOption.REPLACE_EXISTING);
 			
 		} catch (Exception e) {
