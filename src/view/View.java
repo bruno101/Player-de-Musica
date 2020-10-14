@@ -42,7 +42,7 @@ public class View {
 		 CardLayout cardLayout = new CardLayout();
 		 
 		 //Criamos a label com o nome da musica atual
-		 this.currentSongLabel = new JLabel("Large Artist Name - Large Song Name");
+		 this.currentSongLabel = new JLabel("");
 		 this.currentSongLabel.setBounds(5,10,550,45);
 		 this.currentSongLabel.setHorizontalAlignment(JLabel.CENTER);
 		 
