@@ -45,6 +45,8 @@ public class Controller {
 	private PausablePlayer songBeingPlayed;
 	//indica se a musica atual foi pausada
 	private boolean paused;
+	//caso o usuario esteja montando uma nova Playlist, indica se alguma musica foi adicionada - caso nenhuma seja, nao alteramos a playlist
+	private boolean songAddedToNewPlaylist = false;
 	
 	//Um conjunto ordenado (TreeSet) com a lista de generos
 	private TreeSet<String> genreSet;
@@ -148,10 +150,16 @@ public class Controller {
 	}
 	
 	public void newPlaylist () {
-		this.playlist = new Playlist();
+		this.stopSong();
+		this.songAddedToNewPlaylist = false;
+		//so mudamos a playlist se pelo menos uma musica for adicionada a ela, entao aqui ainda nao instanciamos uma nova Playlist
 	}
 	
 	public void addToPlaylist (int indexGenre, int indexSong) {
+		if (!this.songAddedToNewPlaylist) {
+			this.songAddedToNewPlaylist = true;
+			this.playlist = new Playlist();
+		}
 		if (!playlist.contains(this.userSongsList.get(indexGenre).get(indexSong))) {
 			this.playlist.addSong(this.userSongsList.get(indexGenre).get(indexSong));
 		}
