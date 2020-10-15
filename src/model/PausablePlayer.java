@@ -1,5 +1,7 @@
 package model;
 
+import controller.*;
+
 import java.io.*;
 import javazoom.jl.player.Player;
 
