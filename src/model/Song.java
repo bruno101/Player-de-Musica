@@ -112,8 +112,8 @@ public class Song {
 			}
 			
 			//Substituindo o arquivo original
-			mp3file.save("src\\model\\userData\\temp.mp3");
-			File source = new File("src\\model\\userData\\temp.mp3");
+			mp3file.save("resources\\userData\\temp.mp3");
+			File source = new File("resources\\userData\\temp.mp3");
 			Files.move(source.toPath(), s.toPath(), StandardCopyOption.REPLACE_EXISTING);
 			
 		} catch (Exception e) {
