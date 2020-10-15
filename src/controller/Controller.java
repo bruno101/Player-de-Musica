@@ -65,8 +65,8 @@ public class Controller {
 	public void run() {
 		
 		//verificamos se a pasta userData existe, e se ela nao existir a criamos
-		if (!Files.exists(Paths.get("src\\model\\userData"))) {
-			new File("src\\model\\userData").mkdirs();
+		if (!Files.exists(Paths.get("resources\\userData"))) {
+			new File("resources\\userData").mkdirs();
 		}
 		
 		this.importSongsFromUserData();
@@ -80,7 +80,7 @@ public class Controller {
 		this.genreSet = new TreeSet<String>();
 	        this.userSongsList = new ArrayList<ArrayList<Song>>();
 		
-		File userData = new File("src\\model\\userData");
+		File userData = new File("resources\\userData");
 		
 		//int i = 0;
 		
@@ -116,7 +116,7 @@ public class Controller {
 		
 		//copiamos para a pasta UserData
 		File source = new File(filePath);
-		File destination = new File("src\\model\\userData\\" + source.getName());
+		File destination = new File("resources\\userData\\" + source.getName());
 		
 		try {
 			Files.copy(source.toPath(), destination.toPath(), StandardCopyOption.REPLACE_EXISTING);
