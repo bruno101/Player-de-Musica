@@ -102,15 +102,15 @@ public class View {
 		 
 		 //Adicionamos os respectivos icones aos botoes de controle de midia
 		 try {
-			 Image image = ImageIO.read(new File("src\\view\\buttons\\BackButton.png")).getScaledInstance(49,49,Image.SCALE_DEFAULT);
+			 Image image = ImageIO.read(new File("resources\\buttons\\BackButton.png")).getScaledInstance(49,49,Image.SCALE_DEFAULT);
 			 back.setIcon(new ImageIcon(image));
-			 image = ImageIO.read(new File("src\\view\\buttons\\StopButton.png")).getScaledInstance(49,49,Image.SCALE_DEFAULT);
+			 image = ImageIO.read(new File("resources\\buttons\\StopButton.png")).getScaledInstance(49,49,Image.SCALE_DEFAULT);
 			 stop.setIcon(new ImageIcon(image));
-			 image = ImageIO.read(new File("src\\view\\buttons\\PlayButton.png")).getScaledInstance(49,49,Image.SCALE_DEFAULT);
+			 image = ImageIO.read(new File("resources\\buttons\\PlayButton.png")).getScaledInstance(49,49,Image.SCALE_DEFAULT);
 			 play.setIcon(new ImageIcon(image));
-			 image = ImageIO.read(new File("src\\view\\buttons\\PauseButton.png")).getScaledInstance(49,49,Image.SCALE_DEFAULT);
+			 image = ImageIO.read(new File("resources\\buttons\\PauseButton.png")).getScaledInstance(49,49,Image.SCALE_DEFAULT);
 			 pause.setIcon(new ImageIcon(image));
-			 image = ImageIO.read(new File("src\\view\\buttons\\ForwardButton.png")).getScaledInstance(45,45,Image.SCALE_DEFAULT);
+			 image = ImageIO.read(new File("resources\\buttons\\ForwardButton.png")).getScaledInstance(45,45,Image.SCALE_DEFAULT);
 			 forward.setIcon(new ImageIcon(image));
 		 } catch (Exception e) {
 			 e.printStackTrace();
