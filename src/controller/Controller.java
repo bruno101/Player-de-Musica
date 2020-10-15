@@ -28,7 +28,7 @@ import javazoom.jl.player.Player;
 /*Para compilar:
 
 (Windows)
-javac -d bin -cp "lib/*" src/controller/Controller.java src/view/View.java src/view/TransparentListCellRenderer.java src/view/UserSongsListCellRenderer.java src/model/Song.java src/model/Playlist.java src/controller/PausablePlayer.java
+javac -d bin -cp "lib/*" src/controller/Controller.java src/view/View.java src/view/TransparentListCellRenderer.java src/view/UserSongsListCellRenderer.java src/model/Song.java src/model/Playlist.java src/model/PausablePlayer.java
 java -cp bin -cp "bin;lib/*" controller.Controller
 
 */
