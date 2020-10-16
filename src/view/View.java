@@ -358,8 +358,12 @@ public class View {
              public void actionPerformed(ActionEvent e) {
 				 
 				 System.out.println("Save");
-				 
-				 controller.setPlaylistName(playlistNameTextArea.getText());
+
+                 String nameInput = playlistNameTextArea.getText();
+				 if (nameInput == "") {
+					 nameInput = " ";
+				 }
+				 controller.setPlaylistName(nameInput);
 				 controller.addPlaylistToUserData(controller.getPlaylist());
 				 controller.addPlaylistToUserPlaylistsList(controller.getPlaylist());
 				 controller.newPlaylist();
@@ -499,5 +503,5 @@ public class View {
 		});
 	
 	}
-	
+		
 }
