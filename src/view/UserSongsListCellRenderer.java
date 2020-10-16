@@ -17,20 +17,20 @@ public class UserSongsListCellRenderer extends DefaultListCellRenderer {
 		
 		super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 		
-		setOpaque(isSelected);
-		
 		if (clickedSet.contains(index)) {
 
 			setOpaque(true);
 			setBackground(new Color(51,153,255));
 			
+		} else {
+			setOpaque(false);
 		}
 		
 		return this;
 		
 	}
 	
-	//definimos essa funcao para podermos informar em 'View.java' quando um elemento for clicado, para que o 'renderer' possa pintá-los permanentemente
+	//definimos essa funcao para podermos informar em 'View.java' quando um elemento for clicado, para que o 'renderer' possa pintĂ¡-los permanentemente
 	public void addToClickedSet (Integer clickedIndex) {
 		this.clickedSet.add(clickedIndex);
 	}
