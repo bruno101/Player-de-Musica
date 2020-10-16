@@ -4,7 +4,29 @@ import java.util.ArrayList;
 
 public class Playlist {
 	
+	private String name = "";
 	private ArrayList<Song> songs = new ArrayList<>();
+	
+	public Playlist() {
+	}
+	
+	public Playlist(String text) {
+		
+		String[] splitText = text.split(",,");
+		this.name = splitText[0];
+		for (int i = 1; i<splitText.length; i++) {
+			this.songs.add(new Song(splitText[i]));
+		}
+		
+	}
+	
+	public void setName (String name) {
+		this.name = name;
+	}
+	
+	public String getName () {
+		return this.name;
+	}
 	
 	public void addSong (String songPath) {
 		this.songs.add(new Song(songPath));
@@ -34,4 +56,13 @@ public class Playlist {
 		return this.songs.contains(song);
 	}
 	
+	@Override
+	public String toString() {
+		String text = this.name;
+		for (Song song: this.songs) {
+			text += ",,";
+			text += song.getSongPath();
+		}
+		return text;
+	}
 }
