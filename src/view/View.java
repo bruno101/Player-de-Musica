@@ -27,6 +27,7 @@ public class View {
 	private JList playlist;
 	private JComboBox genresList;
 	private JList userSongsList;
+	private JComboBox playlistsList;
 	private JLabel currentSongLabel;
 	
 	//conterao os indices do estilo e da musica que o user selecionar no painel de montagem de playlist
@@ -167,10 +168,10 @@ public class View {
         
 		 });
 		 
-		 //Definimos o botao de 'montarPlaylist', que quando clicado alterara o painel sendo mostrado para o 'painelDeMontagemDePlaylist'
-		 JButton montarPlaylist = new JButton("Montar Playlist");
-		 montarPlaylist.setBounds(290,125,200,45);
-		 montarPlaylist.addActionListener(new ActionListener() {
+		 //Definimos o botao de 'definirPlaylist', que quando clicado alterara o painel sendo mostrado para o 'painelDeMontagemDePlaylist'
+		 JButton definirPlaylist = new JButton("Definir Playlist");
+		 definirPlaylist.setBounds(290,125,200,45);
+		 definirPlaylist.addActionListener(new ActionListener() {
             
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -226,7 +227,7 @@ public class View {
 		 painelPrincipal.add(stop);
 		 painelPrincipal.add(forward);
 		 painelPrincipal.add(importarMusica);
-		 painelPrincipal.add(montarPlaylist);
+		 painelPrincipal.add(definirPlaylist);
 		 painelPrincipal.add(scrollablePlaylist);
 		 painelPrincipal.setBounds(0,0,565,620);
 		 painelPrincipal.setLayout(null);
@@ -248,16 +249,51 @@ public class View {
         
 		 });
 		 
+		 JLabel choosePlaylistLabel = new JLabel("Escolher Playlist");
+		 //choosePlaylistLabel.setForeground(Color.BLUE);
+		 choosePlaylistLabel.setFont(choosePlaylistLabel.getFont().deriveFont(23.0f));
+		 choosePlaylistLabel.setFont(choosePlaylistLabel.getFont().deriveFont(choosePlaylistLabel.getFont().getStyle() | Font.BOLD));
+		 choosePlaylistLabel.setBounds(10,60,500,45);
+		 
+		 this.playlistsList = new JComboBox();
+		 this.playlistsList.setBounds(10,105,530,30);
+		 this.playlistsList.addActionListener(new ActionListener() {
+			 
+			 @Override
+			 public void actionPerformed (ActionEvent e) {
+				 System.out.println("Chosen.");
+			     int selectedPlaylistIndex = playlistsList.getSelectedIndex(); 
+			     controller.setPlaylist(selectedPlaylistIndex);
+			     System.out.println("Index Selected: " + selectedPlaylistIndex);
+			     String s = (String) genresList.getSelectedItem();
+			     System.out.println("Value Selected: " + s);
+			 }
+			 
+		 });
+		 
+		 JLabel createPlaylistLabel = new JLabel("Montar nova Playlist");
+		 //createPlaylistLabel.setForeground(Color.BLUE);
+		 createPlaylistLabel.setFont(choosePlaylistLabel.getFont().deriveFont(23.0f));
+		 createPlaylistLabel.setFont(createPlaylistLabel.getFont().deriveFont(createPlaylistLabel.getFont().getStyle() | Font.BOLD));
+		 createPlaylistLabel.setBounds(10,155,500,45);
+		 
+		 JLabel playlistNameLabel = new JLabel("Escolha o nome da Playlist");
+		 //playlistNameLabel.setFont(playlistNameLabel.getFont().deriveFont(choosePlaylistLabel.getFont().getStyle() | Font.PLAIN));
+		 playlistNameLabel.setBounds(10,190,200,45);
+		 
+		 JTextArea playlistNameTextArea = new JTextArea();
+		 playlistNameTextArea.setBackground(new Color(193,214,233));
+		 playlistNameTextArea.setBounds(190,205,340,20);
+		 
 		 //Aqui definimos a lista em que o usuario selecionara um estilo de musicas
-		 JLabel genreChoiceLabel = new JLabel("Escolha o estilo");
-		 genreChoiceLabel.setBounds(10,70,200,45);
+		 JLabel genreChoiceLabel = new JLabel("Escolha um estilo de musica para consultar");
+		 //genreChoiceLabel.setFont(genreChoiceLabel.getFont().deriveFont(choosePlaylistLabel.getFont().getStyle() | Font.PLAIN));
+		 genreChoiceLabel.setBounds(10,225,300,45);
 		 
 		 //conterao os indices do estilo e da musica que o user selecionar
 		 
 		 this.genresList = new JComboBox();
-		 //this.genresList.setOpaque(false);
-		 //this.genresList.setCellRenderer(new TransparentListCellRenderer());
-		 this.genresList.setBounds(10,125,530,30);
+		 this.genresList.setBounds(10,270,530,30);
 		 //a escolha do usuario afetara o estado da lista de musicas exibidas na tela (userSongsList)
 		 this.genresList.addActionListener(new ActionListener() {
 			 
@@ -282,19 +318,19 @@ public class View {
 			 
 		});
 		 JScrollPane scrollableGenreList = new JScrollPane(this.genresList);
-		 scrollableGenreList.setBounds(10,125,530,30);
+		 scrollableGenreList.setBounds(10,270,530,30);
 		 scrollableGenreList.setOpaque(false);
 		 scrollableGenreList.getViewport().setOpaque(false);
 		 
 		 //Aqui definimos a lista em que o usuario clicara nas musicas que quer reproduzir
-		 JLabel songChoiceLabel = new JLabel("Clique nas musicas que voce quer reproduzir na sua playlist");
-		 songChoiceLabel.setBounds(10,165,400,45);
+		 JLabel songChoiceLabel = new JLabel("Clique nas musicas que voce quer adicionar a sua Playlist");
+		 songChoiceLabel.setBounds(10,300,400,45);
 		 
 		 UserSongsListCellRenderer userSongsListCellRenderer = new UserSongsListCellRenderer();
 		 this.userSongsList = new JList();
 		 this.userSongsList.setOpaque(false);
 		 this.userSongsList.setCellRenderer(userSongsListCellRenderer);
-		 this.userSongsList.setBounds(10,220,530,350);
+		 this.userSongsList.setBounds(10,345,530,180);
 		 this.userSongsList.addMouseListener(new MouseAdapter() {
 			 
 			 @Override
@@ -310,19 +346,49 @@ public class View {
 			 
 		});
 		 JScrollPane scrollableUserSongsList = new JScrollPane(this.userSongsList);
-		 scrollableUserSongsList.setBounds(10,220,530,350);
+		 scrollableUserSongsList.setBounds(10,345,530,180);
 		 scrollableUserSongsList.setOpaque(false);
 		 scrollableUserSongsList.getViewport().setOpaque(false);
+		 
+		 JButton save = new JButton("Salvar Playlist");
+		 save.setBounds(10,530,150,30);
+		 save.addActionListener(new ActionListener() {
+            
+             @Override
+             public void actionPerformed(ActionEvent e) {
+				 
+				 System.out.println("Save");
+				 
+				 controller.setPlaylistName(playlistNameTextArea.getText());
+				 controller.addPlaylistToUserData(controller.getPlaylist());
+				 controller.addPlaylistToUserPlaylistsList(controller.getPlaylist());
+				 controller.newPlaylist();
+				 playlistNameTextArea.setText("");
+				 ((UserSongsListCellRenderer) userSongsList.getCellRenderer()).restart();
+				 userSongsList.updateUI();
+				 
+				 
+		    	 //IMPLEMENTAR
+				 
+             }	
+        
+		 });
 		 
 		 //Adicionamos os botoes do 'painelDeMontagemDePlaylist'
 		 JPanel painelDeMontagemDePlaylist = new JPanel();
 		 painelDeMontagemDePlaylist.setBounds(0,0,565,620);
 		 painelDeMontagemDePlaylist.setLayout(null);
 		 painelDeMontagemDePlaylist.add(executarPlaylist);
+		 painelDeMontagemDePlaylist.add(choosePlaylistLabel);
+		 painelDeMontagemDePlaylist.add(playlistsList);
+		 painelDeMontagemDePlaylist.add(createPlaylistLabel);
+		 painelDeMontagemDePlaylist.add(playlistNameLabel);
+		 painelDeMontagemDePlaylist.add(playlistNameTextArea);
 		 painelDeMontagemDePlaylist.add(genreChoiceLabel);
 		 painelDeMontagemDePlaylist.add(scrollableGenreList);
 		 painelDeMontagemDePlaylist.add(songChoiceLabel);
 		 painelDeMontagemDePlaylist.add(scrollableUserSongsList);
+		 painelDeMontagemDePlaylist.add(save);
 		 
 		 //Por fim definimos os atributos da 'JFrame' e adicionamos os paineis e o 'CardLayout' que permitirá gerir qual painel mostrar
 		 frame.setSize(565,620);
@@ -347,7 +413,7 @@ public class View {
 		
 	}
 	
-	public void addGenresToGenresList (Set<String> genres) {
+	public void addGenresToGenresList (ArrayList<String> genres) {
 	
 	    DefaultComboBoxModel genresModel = new DefaultComboBoxModel();
 		for (String genre: genres) {
@@ -364,6 +430,16 @@ public class View {
 			userSongsModel.addElement(userSong.getSongName());
 		}
 		this.userSongsList.setModel(userSongsModel);
+		
+	}
+	
+	public void addPlaylistsToPlaylistsList (ArrayList<Playlist> playlists) {
+		
+		DefaultComboBoxModel playlistsModel = new DefaultComboBoxModel();
+		for (Playlist playlist: playlists) {
+			playlistsModel.addElement(playlist.getName());
+		}
+		this.playlistsList.setModel(playlistsModel);
 		
 	}
 	
@@ -384,6 +460,7 @@ public class View {
 		labelAskingForInput.setBounds(10,0,300,70);
 		
 		JTextArea genreName = new JTextArea();
+		genreName.setBackground(new Color(193,214,233));
 		genreName.setBounds(10,70,150,25);
 		
 		JButton send = new JButton("Enviar");
