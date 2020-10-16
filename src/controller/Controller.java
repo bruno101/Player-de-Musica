@@ -46,8 +46,6 @@ public class Controller {
 	private PausablePlayer songBeingPlayed;
 	//indica se a musica atual foi pausada
 	private boolean paused;
-	//caso o usuario esteja montando uma nova Playlist, indica se alguma musica foi adicionada - caso nenhuma seja, nao alteramos a playlist
-	private boolean songAddedToNewPlaylist = false;
 	
 	//A lista de generos
 	private ArrayList<String> genreList;
@@ -88,6 +86,10 @@ public class Controller {
 		if ( (userData != null) && (userData.listFiles() != null) ) {
 		
 		for (File file: userData.listFiles()) {
+			
+			if (!file.getPath().endsWith(".mp3")) {
+				continue;
+			}
 				
 			String songPath = file.getPath();
 		    Song song = new Song(songPath);
@@ -160,7 +162,7 @@ public class Controller {
 		this.userPlaylistsList = new ArrayList<>();
 		
 		try {
-			File userPlaylistData = new File("resources\\userPlaylistData.txt");
+			File userPlaylistData = new File("resources\\userData\\userPlaylistData.txt");
 		    if (userPlaylistData.exists()) {
 				String content = new Scanner(userPlaylistData).useDelimiter("\\Z").next();
 				for (String playlistText : content.split(";;")) {
@@ -179,12 +181,12 @@ public class Controller {
 		
 		try {
 			
-			File userPlaylistData = new File("resources\\userPlaylistData.txt");
+			File userPlaylistData = new File("resources\\userData\\userPlaylistData.txt");
 		    if (!userPlaylistData.exists()) {
 			    userPlaylistData.createNewFile();
-				Files.write(Paths.get("resources\\userPlaylistData.txt"), playlist.toString().getBytes(), StandardOpenOption.APPEND);
+				Files.write(Paths.get("resources\\userData\\userPlaylistData.txt"), playlist.toString().getBytes(), StandardOpenOption.APPEND);
 		    } else {
-				Files.write(Paths.get("resources\\userPlaylistData.txt"), ( ";;"+ playlist ).getBytes(), StandardOpenOption.APPEND);
+				Files.write(Paths.get("resources\\userData\\userPlaylistData.txt"), ( ";;"+ playlist ).getBytes(), StandardOpenOption.APPEND);
 			}
 			
 			
@@ -206,7 +208,7 @@ public class Controller {
 	
 	public void newPlaylist () {
 		this.stopSong();
-		this.songAddedToNewPlaylist = false;
+		this.playlist = new Playlist();
 		//so mudamos a playlist se pelo menos uma musica for adicionada a ela, entao aqui ainda nao instanciamos uma nova Playlist
 	}
 	
@@ -224,10 +226,6 @@ public class Controller {
 	}
 	
 	public void addToPlaylist (int indexGenre, int indexSong) {
-		if (!this.songAddedToNewPlaylist) {
-			this.songAddedToNewPlaylist = true;
-			this.playlist = new Playlist();
-		}
 		if (!playlist.contains(this.userSongsList.get(indexGenre).get(indexSong))) {
 			this.playlist.addSong(this.userSongsList.get(indexGenre).get(indexSong));
 		}
@@ -262,18 +260,20 @@ public class Controller {
 	
 	public void startPlaylist (boolean playFirstSong) {
 		
-		if (this.playlist.getSize() > 0) {
+		//if (this.playlist.getSize() > 0) {
 			
 		    this.index = 0;
 		    this.view.addSongsToPlaylist(this.playlist.getSongsList());
-		    this.view.setCurrentSongIndex(this.index);
+			if (this.playlist.getSize() > 0) {
+				this.view.setCurrentSongIndex(this.index);
+			}
 		    this.paused = false;
 		
 		    if (playFirstSong) {
 		    	this.playSong();
 	    	}
 	
-		}
+		//}
 
 	}
 	
@@ -302,7 +302,11 @@ public class Controller {
 		
 	}
 	
-	public void playSong () {
+	public int playSong () {
+		
+		if (this.playlist.getSize() == 0) {
+			return 0;
+		}
 		
 		try {
 			
@@ -323,9 +327,13 @@ public class Controller {
 				
 			}
 			
+			return 1;
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		return 0;
 		
 	}
 	
