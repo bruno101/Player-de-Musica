@@ -12,6 +12,7 @@ import java.io.RandomAccessFile;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.nio.file.StandardOpenOption;
 
 import com.mpatric.mp3agic.ID3v1;
 import com.mpatric.mp3agic.ID3v1Tag;
@@ -24,6 +25,14 @@ import com.mpatric.mp3agic.UnsupportedTagException;
 
 import javazoom.jl.player.advanced.*;
 import javazoom.jl.player.Player;
+
+/*Para compilar/executar:
+
+(Windows)
+javac -d bin -cp "lib/*" src/controller/Controller.java src/view/View.java src/view/TransparentListCellRenderer.java src/view/UserSongsListCellRenderer.java src/model/Song.java src/model/Playlist.java src/model/PausablePlayer.java
+java -cp bin -cp "bin;lib/*" controller.Controller
+
+*/
 
 public class Controller {
 	
@@ -40,10 +49,13 @@ public class Controller {
 	//caso o usuario esteja montando uma nova Playlist, indica se alguma musica foi adicionada - caso nenhuma seja, nao alteramos a playlist
 	private boolean songAddedToNewPlaylist = false;
 	
-	//Um conjunto ordenado (TreeSet) com a lista de generos
-	private TreeSet<String> genreSet;
-	//Um conjunto de conjuntos de musicas de determinado estilo, na mesma ordem que o LinkedHashSet
+	//A lista de generos
+	private ArrayList<String> genreList;
+	//Uma lista de listas de musicas de determinado estilo, na mesma ordem que o LinkedHashSet
 	private ArrayList<ArrayList<Song>> userSongsList; 
+	//Uma lista com as Playlists do usuario
+	private ArrayList<Playlist> userPlaylistsList;
+	
 	
 	public static void main(String args[]) {
 		Controller controller = new Controller();
@@ -60,6 +72,7 @@ public class Controller {
 		}
 		
 		this.importSongsFromUserData();
+		this.importPlaylistsFromUserData();
 		
 		this.playlist = new Playlist();
 		
@@ -67,8 +80,8 @@ public class Controller {
 	
 	public void importSongsFromUserData() {
 		
-		this.genreSet = new TreeSet<String>();
-	        this.userSongsList = new ArrayList<ArrayList<Song>>();
+		this.genreList = new ArrayList<String>();
+	    this.userSongsList = new ArrayList<ArrayList<Song>>();
 		
 		File userData = new File("resources\\userData");
 		
@@ -77,16 +90,16 @@ public class Controller {
 		for (File file: userData.listFiles()) {
 				
 			String songPath = file.getPath();
-		        Song song = new Song(songPath);
+		    Song song = new Song(songPath);
 		
-            if (this.genreSet.contains(song.getSongGenre())) {
+            if (this.genreList.contains(song.getSongGenre())) {
 		   		//Note que 'headSet(element).size()' retorna o indice de um elemento contido em um TreeSet se ele estiver contido
-    			        int index = this.genreSet.headSet(song.getSongGenre()).size();
-	    		        this.userSongsList.get(index).add(song);
+    			int index = this.genreList.indexOf(song.getSongGenre());
+	    		this.userSongsList.get(index).add(song);
 		   	} else {
-		    	    this.genreSet.add(song.getSongGenre());
-		    	    //queremos que a ordem dos generos em genreSet seja a mesma que em userSongsList
-			    int index = this.genreSet.headSet(song.getSongGenre()).size();
+		    	this.genreList.add(song.getSongGenre());
+		    	//queremos que a ordem dos generos em genreList seja a mesma que em userSongsList
+			    int index = this.genreList.indexOf(song.getSongGenre());
 			    this.userSongsList.add(index, new ArrayList<Song>());
 			    this.userSongsList.get(index).add(song);
 		   	}
@@ -94,7 +107,7 @@ public class Controller {
 			
 		}
 		
-		this.view.addGenresToGenresList(this.genreSet);
+		this.view.addGenresToGenresList(this.genreList);
 		
 		}
 		
@@ -126,19 +139,68 @@ public class Controller {
 		
 		//adicionamos ao vetor de musicas do usuario para que a musica importada possa ser encontrada sem que o app tenha que ser reiniciado
 		
-		if (this.genreSet.contains(song.getSongGenre())) {
+		if (this.genreList.contains(song.getSongGenre())) {
 		   	//Note que 'headSet(element).size()' retorna o indice de um elemento contido em um TreeSet se ele estiver contido
-    		        int index = this.genreSet.headSet(song.getSongGenre()).size();
+    		        int index = this.genreList.indexOf(song.getSongGenre());
 	    	        this.userSongsList.get(index).add(song);
 		} else {
-			this.genreSet.add(song.getSongGenre());
-			//queremos que a ordem dos generos em genreSet seja a mesma que em userSongsList
-		        int index = this.genreSet.headSet(song.getSongGenre()).size();
+			this.genreList.add(song.getSongGenre());
+			//queremos que a ordem dos generos em genreList seja a mesma que em userSongsList
+		        int index = this.genreList.indexOf(song.getSongGenre());
 		        this.userSongsList.add(index, new ArrayList<Song>());
 		        this.userSongsList.get(index).add(song);
 	   	}
 		
-		this.view.addGenresToGenresList(this.genreSet);
+		this.view.addGenresToGenresList(this.genreList);
+		
+	}
+	
+	public void importPlaylistsFromUserData () {
+		
+		this.userPlaylistsList = new ArrayList<>();
+		
+		try {
+			File userPlaylistData = new File("resources\\userPlaylistData.txt");
+		    if (userPlaylistData.exists()) {
+				String content = new Scanner(userPlaylistData).useDelimiter("\\Z").next();
+				for (String playlistText : content.split(";;")) {
+					this.userPlaylistsList.add(new Playlist(playlistText));
+				}
+		    }
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		this.view.addPlaylistsToPlaylistsList(this.userPlaylistsList);
+		
+	}
+	
+	public void addPlaylistToUserData (Playlist playlist) {
+		
+		try {
+			
+			File userPlaylistData = new File("resources\\userPlaylistData.txt");
+		    if (!userPlaylistData.exists()) {
+			    userPlaylistData.createNewFile();
+				Files.write(Paths.get("resources\\userPlaylistData.txt"), playlist.toString().getBytes(), StandardOpenOption.APPEND);
+		    } else {
+				Files.write(Paths.get("resources\\userPlaylistData.txt"), ( ";;"+ playlist ).getBytes(), StandardOpenOption.APPEND);
+			}
+			
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+		//IMPLEMENTAR
+		
+	}
+	
+	public void addPlaylistToUserPlaylistsList (Playlist playlist) {
+		
+		this.userPlaylistsList.add(playlist);
+		this.view.addPlaylistsToPlaylistsList(this.userPlaylistsList);
 		
 	}
 	
@@ -146,6 +208,19 @@ public class Controller {
 		this.stopSong();
 		this.songAddedToNewPlaylist = false;
 		//so mudamos a playlist se pelo menos uma musica for adicionada a ela, entao aqui ainda nao instanciamos uma nova Playlist
+	}
+	
+	public void setPlaylist (int index) {
+		this.stopSong();
+		this.playlist = this.userPlaylistsList.get(index);
+	}
+	
+	public Playlist getPlaylist () {
+		return this.playlist;
+	}
+	
+	public void setPlaylistName (String name) {
+		this.playlist.setName (name);
 	}
 	
 	public void addToPlaylist (int indexGenre, int indexSong) {
@@ -163,7 +238,8 @@ public class Controller {
 		HashSet<Integer> set = new HashSet<>();
 		
 		//precisamos encontrar o nome do genero nesse indice
-		Iterator<String> it = this.genreSet.iterator();
+		/*
+		Iterator<String> it = this.genreList.iterator();
 		int cont = 0;
 		String current = null;
 		while (it.hasNext() && cont <= genreIndex) {
@@ -171,6 +247,8 @@ public class Controller {
 			cont++;
 		}
 		String genreName = current;
+		*/
+		String genreName = this.genreList.get(genreIndex);
 		
 		for (Song song: this.playlist.getSongsList()) {
 			if (genreName.equals(song.getSongGenre())) {
