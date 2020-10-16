@@ -133,14 +133,4 @@ public class Song {
 		return this.songPath;
 	}
 	
-	/*
-    public String getGenreFromGenreNum (int genreNum) {
-		return "";
-	}
-	
-	public int getGenreNumFromGenre (String genre) {
-		return 0;
-    }
-	*/
-
 }
