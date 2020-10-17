@@ -44,7 +44,7 @@ public class View {
 		 
 		 //Criamos a label com o nome da musica atual
 		 this.currentSongLabel = new JLabel("");
-		 this.currentSongLabel.setBounds(5,10,550,45);
+		 this.currentSongLabel.setBounds(0,10,540,45);
 		 this.currentSongLabel.setHorizontalAlignment(JLabel.CENTER);
 		 
 		 //Criamos os botoes de controle de midia
@@ -95,11 +95,11 @@ public class View {
 		 });
 		 
 		 //Definimos suas localizacoes e tamanhos
-		 back.setBounds(130,65,45,45);
-		 stop.setBounds(195,65,45,45);
-		 play.setBounds(260,63,49,49);
-		 pause.setBounds(325,65,45,45);
-		 forward.setBounds(390,65,45,45);
+		 back.setBounds(118,65,45,45);
+		 stop.setBounds(183,65,45,45);
+		 play.setBounds(248,63,49,49);
+		 pause.setBounds(313,65,45,45);
+		 forward.setBounds(378,65,45,45);
 		 
 		 //Adicionamos os respectivos icones aos botoes de controle de midia
 		 try {
@@ -122,7 +122,7 @@ public class View {
 		 telaImportacao.setSize(300,300);
 		 
 		 JButton importarMusica = new JButton("Importar Musica");
-		 importarMusica.setBounds(70,125,200,45);
+		 importarMusica.setBounds(65,125,190,45);
 		 importarMusica.addActionListener(new ActionListener() {
             
             @Override
@@ -170,7 +170,7 @@ public class View {
 		 
 		 //Definimos o botao de 'definirPlaylist', que quando clicado alterara o painel sendo mostrado para o 'painelDeMontagemDePlaylist'
 		 JButton definirPlaylist = new JButton("Definir Playlist");
-		 definirPlaylist.setBounds(290,125,200,45);
+		 definirPlaylist.setBounds(285,125,200,45);
 		 definirPlaylist.addActionListener(new ActionListener() {
             
             @Override
@@ -366,6 +366,7 @@ public class View {
 				 controller.setPlaylistName(nameInput);
 				 controller.addPlaylistToUserData(controller.getPlaylist());
 				 controller.addPlaylistToUserPlaylistsList(controller.getPlaylist());
+				 
 				 controller.newPlaylist();
 				 playlistNameTextArea.setText("");
 				 ((UserSongsListCellRenderer) userSongsList.getCellRenderer()).restart();
@@ -475,7 +476,7 @@ public class View {
             public void actionPerformed(ActionEvent e) {
 				song.setSongGenre(genreName.getText());
 				controller.addSongToUserSongsList(song);
-		                popUp.dispose();
+		        popUp.dispose();
 				System.out.println(song.getSongName() + " " + genreName.getText());
             }	
         
@@ -503,5 +504,5 @@ public class View {
 		});
 	
 	}
-		
+	
 }
