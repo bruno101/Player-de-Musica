@@ -10,3 +10,7 @@ Se aparecer 'directory not found: bin' é porque é necessário criar dentro de 
 Em outro sistema operacional eu nao testei, mas imagino que a unica mudanca seja substituir o ';' no comando de execucao por ':'.
 
 Observação: Na compilaçao podem aparecer 'warning's, mas nao tem problema. Na execucao podem aparecer 'NullPointerException's misteriosas envolvendo o Swing aleatoriamente, mas elas parecem nao afetar em nada a execucao do programa. # Player-de-Musica
+
+
+
+Imagens dos botões encontradas em: https://www.flaticon.com/
