@@ -165,7 +165,7 @@ public class Controller {
 			File userPlaylistData = new File("resources\\userData\\userPlaylistData.txt");
 		    if (userPlaylistData.exists()) {
 				String content = new Scanner(userPlaylistData).useDelimiter("\\Z").next();
-				for (String playlistText : content.split(";;")) {
+				for (String playlistText : content.split("\n\n")) {
 					this.userPlaylistsList.add(new Playlist(playlistText));
 				}
 		    }
@@ -186,7 +186,7 @@ public class Controller {
 			    userPlaylistData.createNewFile();
 				Files.write(Paths.get("resources\\userData\\userPlaylistData.txt"), playlist.toString().getBytes(), StandardOpenOption.APPEND);
 		    } else {
-				Files.write(Paths.get("resources\\userData\\userPlaylistData.txt"), ( ";;"+ playlist ).getBytes(), StandardOpenOption.APPEND);
+				Files.write(Paths.get("resources\\userData\\userPlaylistData.txt"), ( "\n\n"+ playlist ).getBytes(), StandardOpenOption.APPEND);
 			}
 			
 			
