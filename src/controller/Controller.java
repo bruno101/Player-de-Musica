@@ -209,7 +209,6 @@ public class Controller {
 	public void newPlaylist () {
 		this.stopSong();
 		this.playlist = new Playlist();
-		//so mudamos a playlist se pelo menos uma musica for adicionada a ela, entao aqui ainda nao instanciamos uma nova Playlist
 	}
 	
 	public void setPlaylist (int index) {
@@ -235,17 +234,6 @@ public class Controller {
 		
 		HashSet<Integer> set = new HashSet<>();
 		
-		//precisamos encontrar o nome do genero nesse indice
-		/*
-		Iterator<String> it = this.genreList.iterator();
-		int cont = 0;
-		String current = null;
-		while (it.hasNext() && cont <= genreIndex) {
-			current = it.next();
-			cont++;
-		}
-		String genreName = current;
-		*/
 		String genreName = this.genreList.get(genreIndex);
 		
 		for (Song song: this.playlist.getSongsList()) {
@@ -259,21 +247,17 @@ public class Controller {
 	}
 	
 	public void startPlaylist (boolean playFirstSong) {
-		
-		//if (this.playlist.getSize() > 0) {
 			
-		    this.index = 0;
-		    this.view.addSongsToPlaylist(this.playlist.getSongsList());
-			if (this.playlist.getSize() > 0) {
-				this.view.setCurrentSongIndex(this.index);
-			}
-		    this.paused = false;
+		this.index = 0;
+		this.view.addSongsToPlaylist(this.playlist.getSongsList());
+		if (this.playlist.getSize() > 0) {
+		     this.view.setCurrentSongIndex(this.index);
+		}
+		this.paused = false;
 		
-		    if (playFirstSong) {
-		    	this.playSong();
+		if (playFirstSong) {
+		    this.playSong();
 	    	}
-	
-		//}
 
 	}
 	
