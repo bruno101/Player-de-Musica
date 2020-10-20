@@ -12,7 +12,7 @@ public class Playlist {
 	
 	public Playlist(String text) {
 		
-		String[] splitText = text.split(",,");
+		String[] splitText = text.split("\n");
 		this.name = splitText[0];
 		for (int i = 1; i<splitText.length; i++) {
 			this.songs.add(new Song(splitText[i]));
@@ -60,7 +60,7 @@ public class Playlist {
 	public String toString() {
 		String text = this.name;
 		for (Song song: this.songs) {
-			text += ",,";
+			text += "\n";
 			text += song.getSongPath();
 		}
 		return text;
