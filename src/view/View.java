@@ -250,7 +250,6 @@ public class View {
 		 });
 		 
 		 JLabel choosePlaylistLabel = new JLabel("Escolher Playlist");
-		 //choosePlaylistLabel.setForeground(Color.BLUE);
 		 choosePlaylistLabel.setFont(choosePlaylistLabel.getFont().deriveFont(23.0f));
 		 choosePlaylistLabel.setFont(choosePlaylistLabel.getFont().deriveFont(choosePlaylistLabel.getFont().getStyle() | Font.BOLD));
 		 choosePlaylistLabel.setBounds(10,60,500,45);
@@ -278,7 +277,6 @@ public class View {
 		 createPlaylistLabel.setBounds(10,155,500,45);
 		 
 		 JLabel playlistNameLabel = new JLabel("Escolha o nome da Playlist");
-		 //playlistNameLabel.setFont(playlistNameLabel.getFont().deriveFont(choosePlaylistLabel.getFont().getStyle() | Font.PLAIN));
 		 playlistNameLabel.setBounds(10,190,200,45);
 		 
 		 JTextArea playlistNameTextArea = new JTextArea();
@@ -287,7 +285,6 @@ public class View {
 		 
 		 //Aqui definimos a lista em que o usuario selecionara um estilo de musicas
 		 JLabel genreChoiceLabel = new JLabel("Escolha um estilo de musica para consultar");
-		 //genreChoiceLabel.setFont(genreChoiceLabel.getFont().deriveFont(choosePlaylistLabel.getFont().getStyle() | Font.PLAIN));
 		 genreChoiceLabel.setBounds(10,225,300,45);
 		 
 		 //conterao os indices do estilo e da musica que o user selecionar
