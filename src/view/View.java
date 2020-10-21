@@ -270,7 +270,6 @@ public class View {
 		 });
 		 
 		 JLabel createPlaylistLabel = new JLabel("Montar nova Playlist");
-		 //createPlaylistLabel.setForeground(Color.BLUE);
 		 createPlaylistLabel.setFont(choosePlaylistLabel.getFont().deriveFont(23.0f));
 		 createPlaylistLabel.setFont(createPlaylistLabel.getFont().deriveFont(createPlaylistLabel.getFont().getStyle() | Font.BOLD));
 		 createPlaylistLabel.setBounds(10,155,500,45);
