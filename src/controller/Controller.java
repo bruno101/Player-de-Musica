@@ -89,7 +89,6 @@ public class Controller {
 		    Song song = new Song(songPath);
 		
             if (this.genreList.contains(song.getSongGenre())) {
-		   		//Note que 'headSet(element).size()' retorna o indice de um elemento contido em um TreeSet se ele estiver contido
     			int index = this.genreList.indexOf(song.getSongGenre());
 	    		this.userSongsList.get(index).add(song);
 		   	} else {
@@ -136,7 +135,6 @@ public class Controller {
 		//adicionamos ao vetor de musicas do usuario para que a musica importada possa ser encontrada sem que o app tenha que ser reiniciado
 		
 		if (this.genreList.contains(song.getSongGenre())) {
-		   	//Note que 'headSet(element).size()' retorna o indice de um elemento contido em um TreeSet se ele estiver contido
     		        int index = this.genreList.indexOf(song.getSongGenre());
 	    	        this.userSongsList.get(index).add(song);
 		} else {
