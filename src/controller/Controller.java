@@ -46,6 +46,8 @@ public class Controller {
 	private PausablePlayer songBeingPlayed;
 	//indica se a musica atual foi pausada
 	private boolean paused;
+	//indica o indice da Playlist selecionada pelo usuario no momento
+	private int selectedPlaylistIndex;
 	
 	//A lista de generos
 	private ArrayList<String> genreList;
@@ -211,9 +213,17 @@ public class Controller {
 		this.playlist = new Playlist();
 	}
 	
+	/*
+	
 	public void setPlaylist (int index) {
 		this.stopSong();
 		this.playlist = this.userPlaylistsList.get(index);
+	}
+	
+	*/
+	
+	public void setSelectedPlaylistIndex (int index) {
+		this.selectedPlaylistIndex = index;
 	}
 	
 	public Playlist getPlaylist () {
@@ -246,18 +256,30 @@ public class Controller {
 		
 	}
 	
-	public void startPlaylist (boolean playFirstSong) {
+	//retorna 0 se nao é possível começar alguma Playlist
+	public int startPlaylist (boolean playFirstSong) {
 			
+		
 		this.index = 0;
+		if (this.selectedPlaylistIndex != -1) {
+			this.stopSong();
+            this.playlist = this.userPlaylistsList.get(this.selectedPlaylistIndex);
+		} else {
+			return 0;
+		}
 		this.view.addSongsToPlaylist(this.playlist.getSongsList());
 		if (this.playlist.getSize() > 0) {
 		     this.view.setCurrentSongIndex(this.index);
+		} else {
+			return 0;
 		}
 		this.paused = false;
 		
 		if (playFirstSong) {
 		    this.playSong();
-	    	}
+	    }
+		
+		return 1;
 
 	}
 	
