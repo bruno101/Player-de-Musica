@@ -177,9 +177,8 @@ public class View {
             public void actionPerformed(ActionEvent e) {
 
                 cardLayout.show(frame.getContentPane(), "painelDeMontagemDePlaylist");
-				frame.setTitle("Montar Playlist");
+				frame.setTitle("Definir Playlist");
 				
-				//recarregamos a lista de musicas do usuario
 				((UserSongsListCellRenderer) userSongsList.getCellRenderer()).restart();
 				userSongsList.updateUI();
 				
@@ -241,7 +240,7 @@ public class View {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                cardLayout.show(frame.getContentPane(), "painelPrincipal");
+                cardLayout.show(frame.getContentPane(), "painelPrincipal"); 
 				controller.startPlaylist(false);
 				frame.setTitle("Executar Playlist");
 				
@@ -262,7 +261,7 @@ public class View {
 			 public void actionPerformed (ActionEvent e) {
 				 System.out.println("Chosen.");
 			     int selectedPlaylistIndex = playlistsList.getSelectedIndex(); 
-			     controller.setPlaylist(selectedPlaylistIndex);
+			     controller.setSelectedPlaylistIndex(selectedPlaylistIndex);
 			     System.out.println("Index Selected: " + selectedPlaylistIndex);
 			     String s = (String) genresList.getSelectedItem();
 			     System.out.println("Value Selected: " + s);
@@ -335,6 +334,7 @@ public class View {
 				 System.out.println("Clicked.");
 				 selectedSongIndex = userSongsList.getSelectedIndex();
 				 userSongsListCellRenderer.addToClickedSet(selectedSongIndex);
+				 userSongsList.updateUI();
 				 controller.addToPlaylist(selectedGenreIndex, selectedSongIndex);
 				 System.out.println("Index Selected: " + selectedSongIndex);
 				 String s = (String) userSongsList.getSelectedValue();
@@ -368,9 +368,6 @@ public class View {
 				 playlistNameTextArea.setText("");
 				 ((UserSongsListCellRenderer) userSongsList.getCellRenderer()).restart();
 				 userSongsList.updateUI();
-				 
-				 
-		    	 //IMPLEMENTAR
 				 
              }	
         
