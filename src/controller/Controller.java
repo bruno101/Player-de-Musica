@@ -26,14 +26,6 @@ import com.mpatric.mp3agic.UnsupportedTagException;
 import javazoom.jl.player.advanced.*;
 import javazoom.jl.player.Player;
 
-/*Para compilar/executar:
-
-(Windows)
-javac -d bin -cp "lib/*" src/controller/Controller.java src/view/View.java src/view/TransparentListCellRenderer.java src/view/UserSongsListCellRenderer.java src/model/Song.java src/model/Playlist.java src/model/PausablePlayer.java
-java -cp bin -cp "bin;lib/*" controller.Controller
-
-*/
-
 public class Controller {
 	
 	View view;
@@ -212,15 +204,6 @@ public class Controller {
 		this.stopSong();
 		this.playlist = new Playlist();
 	}
-	
-	/*
-	
-	public void setPlaylist (int index) {
-		this.stopSong();
-		this.playlist = this.userPlaylistsList.get(index);
-	}
-	
-	*/
 	
 	public void setSelectedPlaylistIndex (int index) {
 		this.selectedPlaylistIndex = index;
