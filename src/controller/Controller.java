@@ -186,9 +186,6 @@ public class Controller {
 			e.printStackTrace();
 		}
 		
-		
-		//IMPLEMENTAR
-		
 	}
 	
 	public void addPlaylistToUserPlaylistsList (Playlist playlist) {
